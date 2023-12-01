@@ -6,40 +6,12 @@ import jakarta.mail.internet.MimeMessage;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
-
+import com.complaint.logic.mailLogic;
 import java.util.Date;
 import java.util.Properties;
 
 @Component
 public class complaintMail implements JavaDelegate {
-
-    public void sendEmail(Session session, String toEmail, String subject, String body) {
-        try {
-            MimeMessage msg = new MimeMessage(session);
-
-            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-            msg.addHeader("format", "flowed");
-            msg.addHeader("Content-Transfer-Encoding", "8bit");
-
-            msg.setFrom(new InternetAddress("enteremail@gmail.com", "complaint-handler"));
-
-            msg.setReplyTo(InternetAddress.parse("enteremail@gmail.com", false));
-
-            msg.setSubject(subject, "UTF-8");
-
-            msg.setText(body, "UTF-8");
-
-            msg.setSentDate(new Date());
-
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-            System.out.println("Message is ready");
-            Transport.send(msg);
-
-            System.out.println("EMail Sent Successfully!!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
@@ -74,9 +46,9 @@ public class complaintMail implements JavaDelegate {
 
         // Mangler nogle lidt mere specifikke svar, når der sendes email
         if (!solution) {
-            sendEmail(session, kundeEmail, "Klage kunne ikke løses", "Din klage kunne desværre ikke løses lige i øjeblikket :)");
+            mailLogic.sendEmail(session, kundeEmail, "Klage kunne ikke løses", "Din klage kunne desværre ikke løses lige i øjeblikket :)");
         } else {
-            sendEmail(session, kundeEmail, "Klage er løst", "Din klage er blevet løst :)");
+            mailLogic.sendEmail(session, kundeEmail, "Klage er løst", "Din klage er blevet løst :)");
         }
 
     }
