@@ -1,8 +1,10 @@
-package com.si;
+package com.complaint;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
+import com.complaint.logic.complaintLogic;
+import java.util.Arrays;
 
 @Component
 public class complaintService implements JavaDelegate {
@@ -13,16 +15,16 @@ public class complaintService implements JavaDelegate {
         String complaint = (String) execution.getVariable("klage");
 
         // Check om complaint er null eller ej
-        if (complaint.length() > 10) {
+        if (complaintLogic.validComplaint(complaint)) {
             // Lige nu er en "god" klage, som kan løses, over 10 karakterer lang. Burde nok være mere indviklet
             // logik til at bestemme hvordan klager skal håndteres, men det har vi ikke fået lavet.
 
-            System.out.println("Succesfuld behandling (false)");
+            //System.out.println("Succesfuld behandling (false)");
             // Her kan du tilføje yderligere logik eller handlinger, der skal udføres
             execution.setVariable("isSuccessful", false);
         } else {
 
-            System.out.println("Mislykket behandling (true)");
+            //System.out.println("Mislykket behandling (true)");
             // Her kan du tilføje yderligere logik eller handlinger, der skal udføres i tilfælde af mislykket behandling
             execution.setVariable("isSuccessful", true);
         }
