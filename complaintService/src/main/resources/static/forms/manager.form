@@ -1,0 +1,75 @@
+{
+  "components": [
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0pauatq",
+        "columns": null
+      },
+      "id": "Field_0525u4g",
+      "key": "email",
+      "description": "Brugerens email"
+    },
+    {
+      "label": "Klage",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_123suj1",
+        "columns": null
+      },
+      "id": "Field_11tossx",
+      "key": "klage",
+      "description": "Brugerens klage"
+    },
+    {
+      "values": [
+        {
+          "label": "Ja",
+          "value": "true"
+        },
+        {
+          "label": "Nej",
+          "value": "false"
+        }
+      ],
+      "label": "Kan manager løse klagen?",
+      "type": "select",
+      "layout": {
+        "row": null,
+        "columns": null
+      },
+      "id": "Field_1timoh4",
+      "key": "managerSolution"
+    },
+    {
+      "label": "Løsning",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_100kal7",
+        "columns": null
+      },
+      "id": "Field_1q13cts",
+      "key": "klageSvar"
+    },
+    {
+      "action": "submit",
+      "label": "Svar",
+      "type": "button",
+      "layout": {
+        "row": "Row_0w61xfs",
+        "columns": null
+      },
+      "id": "Field_0bp9gya"
+    }
+  ],
+  "type": "default",
+  "id": "managerForm",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.16.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.20.0",
+  "schemaVersion": 11
+}

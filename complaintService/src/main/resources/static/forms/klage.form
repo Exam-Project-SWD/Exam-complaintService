@@ -1,0 +1,46 @@
+{
+  "components": [
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1y12at8",
+        "columns": null
+      },
+      "id": "Field_0twdo5z",
+      "key": "email",
+      "description": "Brugerens email"
+    },
+    {
+      "label": "Klage",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1k8paos",
+        "columns": null
+      },
+      "id": "Field_1hux92l",
+      "key": "klage",
+      "description": "Brugerens klage"
+    },
+    {
+      "action": "submit",
+      "label": "Send klage",
+      "type": "button",
+      "layout": {
+        "row": "Row_10b5uy6",
+        "columns": null
+      },
+      "id": "Field_1i2ts2s",
+      "properties": {}
+    }
+  ],
+  "type": "default",
+  "id": "klageForm",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.16.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.20.0",
+  "schemaVersion": 11
+}
