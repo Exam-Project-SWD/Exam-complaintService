@@ -1,3 +1,4 @@
+
 Feature: Complaint
 
   Rule: A complaint must be longer than 10 characters long and a complaint must not contain words such as "fuck", "frick", "shit", "ass".
