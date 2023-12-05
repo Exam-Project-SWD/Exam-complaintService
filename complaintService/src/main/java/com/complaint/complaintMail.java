@@ -12,7 +12,7 @@ import java.util.Properties;
 
 @Component
 public class complaintMail implements JavaDelegate {
-
+    mailLogic mail = new mailLogic();
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         final String fromEmail = "enteremail@gmail.com"; //requires valid gmail id
@@ -46,9 +46,9 @@ public class complaintMail implements JavaDelegate {
 
         // Mangler nogle lidt mere specifikke svar, når der sendes email
         if (!solution) {
-            mailLogic.sendEmail(session, kundeEmail, "Klage kunne ikke løses", "Din klage kunne desværre ikke løses lige i øjeblikket :)");
+            mail.sendEmail(session, kundeEmail, "Klage kunne ikke løses", "Din klage kunne desværre ikke løses lige i øjeblikket :)");
         } else {
-            mailLogic.sendEmail(session, kundeEmail, "Klage er løst", "Din klage er blevet løst :)");
+            mail.sendEmail(session, kundeEmail, "Klage er løst", "Din klage er blevet løst :)");
         }
 
     }

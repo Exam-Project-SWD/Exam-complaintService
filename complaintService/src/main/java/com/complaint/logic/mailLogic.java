@@ -9,7 +9,8 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Date;
 
 public class mailLogic {
-    public static void sendEmail(Session session, String toEmail, String subject, String body) {
+
+    public void sendEmail(Session session, String toEmail, String subject, String body) {
         try {
             MimeMessage msg = new MimeMessage(session);
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
