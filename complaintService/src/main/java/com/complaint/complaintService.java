@@ -16,16 +16,15 @@ public class complaintService implements JavaDelegate {
 
         // Check om complaint er null eller ej
         if (complaintLogic.validComplaint(complaint)) {
-            // Lige nu er en "god" klage, som kan løses, over 10 karakterer lang. Burde nok være mere indviklet
-            // logik til at bestemme hvordan klager skal håndteres, men det har vi ikke fået lavet.
+            // Lige nu er en "god" klage, som kan løses, over 10 karakterer lang og ikke indeholder "dårlige" ord.
 
-            //System.out.println("Succesfuld behandling (false)");
-            // Her kan du tilføje yderligere logik eller handlinger, der skal udføres
+            // Grunden til at en valid klage bliver sat til false er den måde vi har håndteret
+            // det på inde i camunda, det har noget at gøre med at hvis en klage bliver false, så er der IKKE
+            // brug for at en manager kigger på klagen. Så isSuccessful burde nok hedde noget a la "needManager"
             execution.setVariable("isSuccessful", false);
         } else {
 
-            //System.out.println("Mislykket behandling (true)");
-            // Her kan du tilføje yderligere logik eller handlinger, der skal udføres i tilfælde af mislykket behandling
+            // Se kommentar ovenfor ^^
             execution.setVariable("isSuccessful", true);
         }
     }
