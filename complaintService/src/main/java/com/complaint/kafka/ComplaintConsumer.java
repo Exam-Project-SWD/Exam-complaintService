@@ -17,7 +17,7 @@ public class ComplaintConsumer {
     private static final Logger log = LoggerFactory.getLogger(ComplaintConsumer.class);
     Dotenv dotenv = Dotenv.load();
 
-    private void consumeComplaint(){
+    public void consumeComplaint(){
         String bootstrapServers = dotenv.get("kafkaBootstrapServer");
         String groupId = "complaint-app";
         String topic = dotenv.get("kafkaTopic");

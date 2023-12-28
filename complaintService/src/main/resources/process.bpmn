@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_08t4msy" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.16.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_08t4msy" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
   <bpmn:process id="Process_1b0zh29" name="customer complaints" isExecutable="true" camunda:historyTimeToLive="180">
     <bpmn:startEvent id="StartEvent_1" name="Modtager complaint">
-      <bpmn:outgoing>Flow_04dues1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1rrvl0s</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:userTask id="Activity_0to2qtv" name="Registrer klagen og indsamler oplysninger" camunda:formKey="camunda-forms:/forms/complaint.form" camunda:assignee="admin">
-      <bpmn:extensionElements />
-      <bpmn:incoming>Flow_04dues1</bpmn:incoming>
-      <bpmn:outgoing>Flow_1xb927i</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_04dues1" sourceRef="StartEvent_1" targetRef="Activity_0to2qtv" />
-    <bpmn:sequenceFlow id="Flow_1xb927i" sourceRef="Activity_0to2qtv" targetRef="Activity_03cq6vd" />
     <bpmn:exclusiveGateway id="Gateway_1akcizz" name="Er klagen godkendt og kan løses">
       <bpmn:incoming>Flow_10s98d8</bpmn:incoming>
       <bpmn:outgoing>Flow_17ec5pw</bpmn:outgoing>
@@ -63,10 +56,11 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${managerSolution==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:businessRuleTask id="Activity_03cq6vd" name="Indberette til kundeservice" camunda:delegateExpression="#{ComplaintService}">
-      <bpmn:incoming>Flow_1xb927i</bpmn:incoming>
+      <bpmn:incoming>Flow_0w3kufh</bpmn:incoming>
       <bpmn:outgoing>Flow_1uuyk0x</bpmn:outgoing>
     </bpmn:businessRuleTask>
     <bpmn:exclusiveGateway id="Gateway_1nomvnc" name="kræver klagen yderligere undersøgelse">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_1uuyk0x</bpmn:incoming>
       <bpmn:outgoing>Flow_0vaxygs</bpmn:outgoing>
       <bpmn:outgoing>Flow_03rzzgg</bpmn:outgoing>
@@ -82,6 +76,12 @@
       <bpmn:incoming>Flow_03rzzgg</bpmn:incoming>
       <bpmn:outgoing>Flow_10s98d8</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_182su6o" name="Get info from kafka" camunda:delegateExpression="#{KafkaComplaint}">
+      <bpmn:incoming>Flow_1rrvl0s</bpmn:incoming>
+      <bpmn:outgoing>Flow_0w3kufh</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1rrvl0s" sourceRef="StartEvent_1" targetRef="Activity_182su6o" />
+    <bpmn:sequenceFlow id="Flow_0w3kufh" sourceRef="Activity_182su6o" targetRef="Activity_03cq6vd" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1b0zh29">
@@ -90,10 +90,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="152" y="385" width="76" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0to2qtv_di" bpmnElement="Activity_0to2qtv">
-        <dc:Bounds x="260" y="317" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1akcizz_di" bpmnElement="Gateway_1akcizz" isMarkerVisible="true">
         <dc:Bounds x="955" y="332" width="50" height="50" />
@@ -148,14 +144,10 @@
       <bpmndi:BPMNShape id="Activity_1t4juy2_di" bpmnElement="Activity_1urkuel">
         <dc:Bounds x="760" y="317" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_04dues1_di" bpmnElement="Flow_04dues1">
-        <di:waypoint x="208" y="357" />
-        <di:waypoint x="260" y="357" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1xb927i_di" bpmnElement="Flow_1xb927i">
-        <di:waypoint x="360" y="357" />
-        <di:waypoint x="440" y="357" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_182su6o_di" bpmnElement="Activity_182su6o">
+        <dc:Bounds x="260" y="317" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_10s98d8_di" bpmnElement="Flow_10s98d8">
         <di:waypoint x="860" y="357" />
         <di:waypoint x="955" y="357" />
@@ -223,6 +215,14 @@
       <bpmndi:BPMNEdge id="Flow_1uuyk0x_di" bpmnElement="Flow_1uuyk0x">
         <di:waypoint x="540" y="357" />
         <di:waypoint x="615" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rrvl0s_di" bpmnElement="Flow_1rrvl0s">
+        <di:waypoint x="208" y="357" />
+        <di:waypoint x="260" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0w3kufh_di" bpmnElement="Flow_0w3kufh">
+        <di:waypoint x="360" y="357" />
+        <di:waypoint x="440" y="357" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
