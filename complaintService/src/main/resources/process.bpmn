@@ -19,7 +19,7 @@
     <bpmn:sequenceFlow id="Flow_17ec5pw" name="Godkendt" sourceRef="Gateway_1akcizz" targetRef="Activity_0ikkb60">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${enoughInfo==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Activity_098k973" name="Klage løst Email sendes til kunden" camunda:delegateExpression="#{ComplaintMail}">
+    <bpmn:serviceTask id="Activity_098k973" name="Klage løst Email sendes til kunden" camunda:delegateExpression="#{complaintMail}">
       <bpmn:incoming>Flow_1ammd6g</bpmn:incoming>
       <bpmn:outgoing>Flow_1bcxt1s</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -44,7 +44,7 @@
     <bpmn:sequenceFlow id="Flow_0fbee1u" name="Nej" sourceRef="Gateway_0zd4q1s" targetRef="Activity_1xjk4ko">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${managerSolution==false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Activity_1xjk4ko" name="Klage ikke løst, Email sendes til kunden" camunda:delegateExpression="#{ComplaintMail}">
+    <bpmn:serviceTask id="Activity_1xjk4ko" name="Klage ikke løst, Email sendes til kunden" camunda:delegateExpression="#{complaintMail}">
       <bpmn:incoming>Flow_0fbee1u</bpmn:incoming>
       <bpmn:outgoing>Flow_1v5da2m</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -55,7 +55,7 @@
     <bpmn:sequenceFlow id="Flow_0qpq7ea" name="Ja" sourceRef="Gateway_0zd4q1s" targetRef="Activity_0ikkb60">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${managerSolution==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:businessRuleTask id="Activity_03cq6vd" name="Indberette til kundeservice" camunda:delegateExpression="#{ComplaintService}">
+    <bpmn:businessRuleTask id="Activity_03cq6vd" name="Indberette til kundeservice" camunda:delegateExpression="#{complaintService}">
       <bpmn:incoming>Flow_0w3kufh</bpmn:incoming>
       <bpmn:outgoing>Flow_1uuyk0x</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -76,10 +76,10 @@
       <bpmn:incoming>Flow_03rzzgg</bpmn:incoming>
       <bpmn:outgoing>Flow_10s98d8</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_182su6o" name="Get info from kafka" camunda:delegateExpression="#{KafkaComplaint}">
+    <bpmn:businessRuleTask id="Activity_182su6o" name="Get info from kafka" camunda:delegateExpression="#{kafkaComplaint}">
       <bpmn:incoming>Flow_1rrvl0s</bpmn:incoming>
       <bpmn:outgoing>Flow_0w3kufh</bpmn:outgoing>
-    </bpmn:serviceTask>
+    </bpmn:businessRuleTask>
     <bpmn:sequenceFlow id="Flow_1rrvl0s" sourceRef="StartEvent_1" targetRef="Activity_182su6o" />
     <bpmn:sequenceFlow id="Flow_0w3kufh" sourceRef="Activity_182su6o" targetRef="Activity_03cq6vd" />
   </bpmn:process>

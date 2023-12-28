@@ -12,15 +12,17 @@ import com.complaint.entities.Complaint;
 
 import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ComplaintConsumer {
     private static final Logger log = LoggerFactory.getLogger(ComplaintConsumer.class);
     Dotenv dotenv = Dotenv.load();
-
-    public void consumeComplaint(){
+    AtomicReference<Complaint> msgCons = new AtomicReference<>();
+    public Complaint consumeComplaint(){
         String bootstrapServers = dotenv.get("kafkaBootstrapServer");
         String groupId = "complaint-app";
         String topic = dotenv.get("kafkaTopic");
+        Complaint firstComplaint = new Complaint();
 
         Properties props = new Properties();
         props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -32,9 +34,15 @@ public class ComplaintConsumer {
 
         KafkaConsumer<String, Complaint> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(topic));
-        ConsumerRecords<String, Complaint> records = consumer.poll(Duration.ofMillis(100));
-        Map<TopicPartition, Long> offset = consumer.beginningOffsets(List.of());
-        System.out.println(offset);
+        ConsumerRecords<String, Complaint> records = consumer.poll(Duration.ofSeconds(1));
+
+        for (ConsumerRecord<String, Complaint> record : records) {
+            msgCons.set(record.value());
+            firstComplaint.setKundeEmail(record.value().getKundeEmail());
+            firstComplaint.setKlage(record.value().getKlage());
+            break;
+        }
         consumer.close();
+        return firstComplaint;
     }
 }

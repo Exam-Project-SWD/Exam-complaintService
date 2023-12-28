@@ -1,5 +1,6 @@
 package com.complaint;
 
+import com.complaint.entities.Complaint;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,10 @@ public class KafkaComplaint implements JavaDelegate {
     ComplaintConsumer cc = new ComplaintConsumer();
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        cc.consumeComplaint();
+        Complaint complaint = cc.consumeComplaint();
+
+        delegateExecution.setVariable("email", complaint.getKundeEmail());
+        delegateExecution.setVariable("klage", complaint.getKlage());
+        
     }
 }
