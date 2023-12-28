@@ -19,8 +19,8 @@
         "columns": null
       },
       "id": "Field_0vymg5a",
-      "key": "klage",
-      "description": "Brugerens klage"
+      "key": "complaint",
+      "description": "Brugerens complaint"
     },
     {
       "values": [

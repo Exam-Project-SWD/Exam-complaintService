@@ -19,12 +19,12 @@
         "columns": null
       },
       "id": "Field_1hux92l",
-      "key": "klage",
-      "description": "Brugerens klage"
+      "key": "complaint",
+      "description": "Brugerens complaint"
     },
     {
       "action": "submit",
-      "label": "Send klage",
+      "label": "Send complaint",
       "type": "button",
       "layout": {
         "row": "Row_10b5uy6",

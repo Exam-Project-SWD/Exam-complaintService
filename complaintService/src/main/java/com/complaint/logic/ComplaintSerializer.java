@@ -1,13 +1,13 @@
 package com.complaint.logic;
 
-import com.complaint.entities.Klage;
+import com.complaint.entities.Complaint;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Serializer;
 
 import java.util.Map;
 
-public class KlageSerializer implements Serializer<Klage> {
+public class ComplaintSerializer implements Serializer<Complaint> {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -15,7 +15,7 @@ public class KlageSerializer implements Serializer<Klage> {
     }
 
     @Override
-    public byte[] serialize(String topic, Klage data) {
+    public byte[] serialize(String topic, Complaint data) {
         try {
             if (data == null){
                 System.out.println("Null received at serializing");

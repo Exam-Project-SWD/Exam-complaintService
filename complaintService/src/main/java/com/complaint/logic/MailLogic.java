@@ -8,7 +8,7 @@ import jakarta.mail.internet.MimeMessage;
 
 import java.util.Date;
 
-public class mailLogic {
+public class MailLogic {
 
     public void sendEmail(Session session, String toEmail, String subject, String body) {
         try {

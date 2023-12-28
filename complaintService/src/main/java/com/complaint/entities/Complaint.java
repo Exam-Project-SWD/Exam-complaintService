@@ -1,15 +1,15 @@
 package com.complaint.entities;
 
 
-public class Klage {
+public class Complaint {
     private String kundeEmail;
     private String klage;
 
-    public Klage(String kundeEmail, String klage) {
+    public Complaint(String kundeEmail, String klage) {
         this.kundeEmail = kundeEmail;
         this.klage = klage;
     }
-    public Klage(){}
+    public Complaint(){}
 
     public String getKundeEmail() {
         return kundeEmail;

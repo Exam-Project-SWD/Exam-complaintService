@@ -2,7 +2,7 @@ package com.complaint.logic;
 
 import java.util.Arrays;
 
-public class complaintLogic {
+public class ComplaintLogic {
     public static boolean validComplaint(String complaint) {
         int minComplaintLength = 10;
         String[] bannedWords = {"fuck", "frick", "shit", "ass"};

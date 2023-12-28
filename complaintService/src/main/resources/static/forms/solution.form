@@ -12,14 +12,14 @@
       "description": "Brugerens email"
     },
     {
-      "label": "Brugerens klage",
+      "label": "Brugerens complaint",
       "type": "textfield",
       "layout": {
         "row": "Row_0q97ths",
         "columns": null
       },
       "id": "Field_0t4n2ej",
-      "key": "klage"
+      "key": "complaint"
     },
     {
       "label": "Løsning",

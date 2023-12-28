@@ -1,17 +1,13 @@
 package complaint.cucumber;
 
-import com.complaint.logic.mailLogic;
+import com.complaint.logic.ComplaintLogic;
+import com.complaint.logic.MailLogic;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.junit.CucumberOptions;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.mail.*;
 import org.junit.Assert;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import io.cucumber.junit.Cucumber;
 
 import static org.mockito.Mockito.*;
 
@@ -19,7 +15,7 @@ import static org.mockito.Mockito.*;
 public class ComplaintsStepdefs {
     String complaint = "";
     boolean complaintFixed;
-    mailLogic mockMail = mock(mailLogic.class);
+    MailLogic mockMail = mock(MailLogic.class);
     Session s = mock(Session.class);
 
     @Given("this complaint {string} is submitted")
@@ -29,7 +25,7 @@ public class ComplaintsStepdefs {
 
     @And("the complaint is checked by the complaintLogic method and is valid")
     public void theComplaintIsCheckedByTheComplaintLogicMethodAndIsValid() {
-        Assert.assertTrue(com.complaint.logic.complaintLogic.validComplaint(complaint));
+        Assert.assertTrue(ComplaintLogic.validComplaint(complaint));
     }
 
     @When("the complaint has been fixed")

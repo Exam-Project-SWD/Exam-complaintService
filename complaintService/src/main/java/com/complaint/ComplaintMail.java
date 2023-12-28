@@ -4,16 +4,13 @@ import jakarta.mail.*;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
-import com.complaint.logic.mailLogic;
-import java.util.Date;
+import com.complaint.logic.MailLogic;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Properties;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Component
-public class complaintMail implements JavaDelegate {
-    mailLogic mail = new mailLogic();
+public class ComplaintMail implements JavaDelegate {
+    MailLogic mail = new MailLogic();
     Dotenv dotenv = Dotenv.load();
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {

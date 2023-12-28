@@ -1,6 +1,6 @@
 package com.complaint.kafka;
 
-import com.complaint.entities.Klage;
+import com.complaint.entities.Complaint;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -15,20 +15,21 @@ public class ComplaintProducer {
     private static final Logger log = LoggerFactory.getLogger(ComplaintProducer.class);
     Dotenv dotenv = Dotenv.load();
 
-    public void produceComplaint(Klage klage){
+    public void produceComplaint(Complaint complaint){
         String bootstrapServer = dotenv.get("kafkaBootstrapServer");
 
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,"com.complaint.logic.KlageSerializer");
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,"com.complaint.logic.ComplaintSerializer");
 
-        KafkaProducer<String, Klage> producer = new KafkaProducer<>(props);
+        KafkaProducer<String, Complaint> producer = new KafkaProducer<>(props);
 
-        ProducerRecord<String, Klage> pr = new ProducerRecord<>("complaint-events", klage);
+        ProducerRecord<String, Complaint> pr = new ProducerRecord<>("complaint-events", complaint);
         producer.send(pr);
         producer.flush();
         producer.close();
+
     }
 
 }

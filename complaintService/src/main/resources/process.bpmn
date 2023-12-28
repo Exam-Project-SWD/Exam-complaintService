@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_08t4msy" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.16.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
   <bpmn:process id="Process_1b0zh29" name="customer complaints" isExecutable="true" camunda:historyTimeToLive="180">
-    <bpmn:startEvent id="StartEvent_1" name="Modtager klage">
+    <bpmn:startEvent id="StartEvent_1" name="Modtager complaint">
       <bpmn:outgoing>Flow_04dues1</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:userTask id="Activity_0to2qtv" name="Registrer klagen og indsamler oplysninger" camunda:formKey="camunda-forms:/forms/klage.form" camunda:assignee="admin">
+    <bpmn:userTask id="Activity_0to2qtv" name="Registrer klagen og indsamler oplysninger" camunda:formKey="camunda-forms:/forms/complaint.form" camunda:assignee="admin">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_04dues1</bpmn:incoming>
       <bpmn:outgoing>Flow_1xb927i</bpmn:outgoing>
@@ -26,7 +26,7 @@
     <bpmn:sequenceFlow id="Flow_17ec5pw" name="Godkendt" sourceRef="Gateway_1akcizz" targetRef="Activity_0ikkb60">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${enoughInfo==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Activity_098k973" name="Klage løst Email sendes til kunden" camunda:delegateExpression="#{complaintMail}">
+    <bpmn:serviceTask id="Activity_098k973" name="Klage løst Email sendes til kunden" camunda:delegateExpression="#{ComplaintMail}">
       <bpmn:incoming>Flow_1ammd6g</bpmn:incoming>
       <bpmn:outgoing>Flow_1bcxt1s</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -51,7 +51,7 @@
     <bpmn:sequenceFlow id="Flow_0fbee1u" name="Nej" sourceRef="Gateway_0zd4q1s" targetRef="Activity_1xjk4ko">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${managerSolution==false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Activity_1xjk4ko" name="Klage ikke løst, Email sendes til kunden" camunda:delegateExpression="#{complaintMail}">
+    <bpmn:serviceTask id="Activity_1xjk4ko" name="Klage ikke løst, Email sendes til kunden" camunda:delegateExpression="#{ComplaintMail}">
       <bpmn:incoming>Flow_0fbee1u</bpmn:incoming>
       <bpmn:outgoing>Flow_1v5da2m</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="Flow_0qpq7ea" name="Ja" sourceRef="Gateway_0zd4q1s" targetRef="Activity_0ikkb60">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${managerSolution==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:businessRuleTask id="Activity_03cq6vd" name="Indberette til kundeservice" camunda:delegateExpression="#{complaintService}">
+    <bpmn:businessRuleTask id="Activity_03cq6vd" name="Indberette til kundeservice" camunda:delegateExpression="#{ComplaintService}">
       <bpmn:incoming>Flow_1xb927i</bpmn:incoming>
       <bpmn:outgoing>Flow_1uuyk0x</bpmn:outgoing>
     </bpmn:businessRuleTask>
