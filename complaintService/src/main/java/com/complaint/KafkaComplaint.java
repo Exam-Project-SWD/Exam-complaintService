@@ -12,9 +12,12 @@ public class KafkaComplaint implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         Complaint complaint = cc.consumeComplaint();
-
-        delegateExecution.setVariable("klage", complaint.getKlage());
-        delegateExecution.setVariable("email", complaint.getKundeEmail());
+        try {
+            delegateExecution.setVariable("klage", complaint.getKlage());
+            delegateExecution.setVariable("email", complaint.getKundeEmail());
+        }catch (NullPointerException np){
+            System.out.println(np);
+        }
 
     }
 }

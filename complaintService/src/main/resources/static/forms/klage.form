@@ -19,7 +19,7 @@
         "columns": null
       },
       "id": "Field_1hux92l",
-      "key": "complaint",
+      "key": "klage",
       "description": "Brugerens complaint"
     },
     {
@@ -38,9 +38,9 @@
   "id": "klageForm",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.16.0"
+    "version": "5.18.0"
   },
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.20.0",
-  "schemaVersion": 11
+  "schemaVersion": 13
 }

@@ -31,13 +31,15 @@ public class ComplaintConsumer {
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "com.complaint.logic.ComplaintDeserializer");
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1);
 
         KafkaConsumer<String, Complaint> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(topic));
         ConsumerRecords<String, Complaint> records = consumer.poll(Duration.ofSeconds(1));
+
         try {
             for (ConsumerRecord<String, Complaint> record : records) {
-                msgCons.set(record.value());
+
                 firstComplaint.setKundeEmail(record.value().getKundeEmail());
                 firstComplaint.setKlage(record.value().getKlage());
                 break;
