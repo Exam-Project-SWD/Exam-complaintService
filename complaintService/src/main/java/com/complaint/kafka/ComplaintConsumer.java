@@ -9,15 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import com.complaint.entities.Complaint;
-
 import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
+
 
 public class ComplaintConsumer {
     private static final Logger log = LoggerFactory.getLogger(ComplaintConsumer.class);
     Dotenv dotenv = Dotenv.load();
-    AtomicReference<Complaint> msgCons = new AtomicReference<>();
+
     public Complaint consumeComplaint(){
         String bootstrapServers = dotenv.get("kafkaBootstrapServer");
         String groupId = "complaint-app";

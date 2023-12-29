@@ -26,7 +26,7 @@ public class ComplaintDeserializer implements Deserializer<Complaint> {
             System.out.println("Deserializing...");
             return objectMapper.readValue(new String(data, "UTF-8"), Complaint.class);
         } catch (Exception e) {
-            throw new SerializationException("Error when deserializing byte[] to MessageDto");
+            throw new SerializationException("Error when deserializing byte[] to complaint");
         }
     }
 

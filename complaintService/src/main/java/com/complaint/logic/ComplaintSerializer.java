@@ -24,7 +24,7 @@ public class ComplaintSerializer implements Serializer<Complaint> {
             System.out.println("Serializing...");
             return objectMapper.writeValueAsBytes(data);
         } catch (Exception e) {
-            throw new SerializationException("Error when serializing klage to byte[]");
+            throw new SerializationException("Error when serializing complaint to byte[]");
         }
     }
 
