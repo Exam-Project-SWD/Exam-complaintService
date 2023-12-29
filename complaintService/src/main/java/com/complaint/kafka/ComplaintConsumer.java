@@ -35,13 +35,18 @@ public class ComplaintConsumer {
         KafkaConsumer<String, Complaint> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(topic));
         ConsumerRecords<String, Complaint> records = consumer.poll(Duration.ofSeconds(1));
-
-        for (ConsumerRecord<String, Complaint> record : records) {
-            msgCons.set(record.value());
-            firstComplaint.setKundeEmail(record.value().getKundeEmail());
-            firstComplaint.setKlage(record.value().getKlage());
-            break;
+        try {
+            for (ConsumerRecord<String, Complaint> record : records) {
+                msgCons.set(record.value());
+                firstComplaint.setKundeEmail(record.value().getKundeEmail());
+                firstComplaint.setKlage(record.value().getKlage());
+                break;
+            }
+        }catch (Exception e){
+            //log.atError().log("No complaint was found in kafka"+e);
+            System.out.println(e);
         }
+
         consumer.close();
         return firstComplaint;
     }

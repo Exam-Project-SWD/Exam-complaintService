@@ -13,8 +13,8 @@ public class KafkaComplaint implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         Complaint complaint = cc.consumeComplaint();
 
-        delegateExecution.setVariable("email", complaint.getKundeEmail());
         delegateExecution.setVariable("klage", complaint.getKlage());
-        
+        delegateExecution.setVariable("email", complaint.getKundeEmail());
+
     }
 }
